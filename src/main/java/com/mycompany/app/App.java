@@ -11,6 +11,8 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(MESSAGE);
+        System.out.println("Build triggered by Jenkins...");
+        System.out.println("App started successfully!");
     }
 
     public String getMessage() {
