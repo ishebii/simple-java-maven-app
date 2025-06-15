@@ -10,6 +10,7 @@ pipeline {
         sh 'mvn -B -DskipTests clean package'
       }
     }
+
     stage('Test') {
       steps {
         sh 'mvn test'
@@ -20,9 +21,15 @@ pipeline {
         }
       }
     }
+
     stage('Deliver') {
       steps {
-        sh 'java -jar target/my-app-1.0-SNAPSHOT.jar'
+        script {
+          // Kill old process if running
+          sh "pkill -f 'my-app-1.0-SNAPSHOT.jar' || true"
+          // Start the app in the background
+          sh "nohup java -jar target/my-app-1.0-SNAPSHOT.jar > app.log 2>&1 &"
+        }
       }
     }
   }
