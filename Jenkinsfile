@@ -1,11 +1,12 @@
 pipeline {
-  agent {
-    label 'local'  // Force Jenkins to use the Maven-installed agent
+  agent { label 'local' }
+  tools {
+    maven 'Maven 3.9.10'
   }
   stages {
     stage('Build') {
       steps {
-        sh '/opt/maven/bin/mvn -B -DskipTests clean package'
+        sh 'mvn -B -DskipTests clean package'
       }
     }
   }
