@@ -1,7 +1,7 @@
 pipeline {
   agent { label 'local' }
   tools {
-    maven 'Maven 3.9'
+    maven 'Maven-3.9'
   }
   stages {
     stage('Build') {
