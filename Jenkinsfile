@@ -20,10 +20,9 @@ pipeline {
         }
       }
     }
-    stage('Verify') {
+    stage('Deliver') {
       steps {
-        sh 'java -version'
-        sh 'mvn --version'
+        sh 'java -jar target/my-app-1.0-SNAPSHOT.jar'
       }
     }
   }
