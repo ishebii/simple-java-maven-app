@@ -1,5 +1,7 @@
 pipeline {
-  agent any
+  agent {
+    label 'local'   // This matches the label in your screenshot
+  }
   stages {
     stage('Build') {
       steps {
