@@ -2,7 +2,7 @@ pipeline {
   agent { label 'local' }
   tools {
     maven 'Maven-3.9'
-    jdk 'JDK-17'  // Added JDK 17 to fix Java version issue
+    jdk 'JDK-21'  // Added JDK 17 to fix Java version issue
   }
   stages {
     stage('Build') {
