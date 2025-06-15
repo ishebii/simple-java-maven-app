@@ -2,7 +2,7 @@ pipeline {
   agent { label 'local' }
   tools {
     maven 'Maven-3.9'
-    jdk 'JDK-21'  // Added JDK 17 to fix Java version issue
+    jdk 'JDK-21'  // Added JDK 21 to match project requirements
   }
   stages {
     stage('Build') {
@@ -13,6 +13,11 @@ pipeline {
     stage('Test') {
       steps {
         sh 'mvn test'
+      }
+      post {
+        always {
+          junit 'target/surefire-reports/*.xml'
+        }
       }
     }
     stage('Verify') {
