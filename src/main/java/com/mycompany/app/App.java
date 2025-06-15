@@ -13,6 +13,10 @@ public class App {
         System.out.println(MESSAGE);
         System.out.println("Build triggered by Jenkins...");
         System.out.println("App started successfully!");
+	System.out.println("App started successfully!");
+        System.out.println("App started successfully!");
+        System.out.println("App started successfully-0!");
+
     }
 
     public String getMessage() {
