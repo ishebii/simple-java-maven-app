@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    label 'local'   // This matches the label in your screenshot
+    label 'local'  // Force Jenkins to use the Maven-installed agent
   }
   stages {
     stage('Build') {
