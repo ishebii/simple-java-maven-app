@@ -2,15 +2,26 @@ pipeline {
   agent { label 'local' }
   tools {
     maven 'Maven-3.9'
-    jdk 'JDK-21'  // Added JDK 21 to match project requirements
+    jdk 'JDK-21'
+  }
+  options {
+    skipDefaultCheckout()
   }
   stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+        echo "Building branch: ${env.GIT_BRANCH}"
+      }
+    }
     stage('Build') {
+      when {
+        expression { return env.GIT_BRANCH ==~ /origin\/(test|master)/ }
+      }
       steps {
         sh 'mvn -B -DskipTests clean package'
       }
     }
-
     stage('Test') {
       steps {
         sh 'mvn test'
@@ -21,15 +32,9 @@ pipeline {
         }
       }
     }
-
     stage('Deliver') {
       steps {
-        script {
-          // Kill old process if running
-          sh "pkill -f 'my-app-1.0-SNAPSHOT.jar' || true"
-          // Start the app in the background
-          sh "nohup java -jar target/my-app-1.0-SNAPSHOT.jar > app.log 2>&1 &"
-        }
+        sh 'java -jar target/my-app-1.0-SNAPSHOT.jar > app.log &'
       }
     }
   }
